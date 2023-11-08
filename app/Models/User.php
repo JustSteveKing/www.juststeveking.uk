@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Carbon\CarbonInterface;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -22,6 +24,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property null|string $remember_token
  * @property null|CarbonInterface $created_at
  * @property null|CarbonInterface $updated_at
+ * @property Collection<Post> $posts
  */
 final class User extends Authenticatable
 {
@@ -48,4 +51,12 @@ final class User extends Authenticatable
     protected $casts = [
         'password' => 'hashed',
     ];
+
+    public function posts(): HasMany
+    {
+        return $this->hasMany(
+            related: Post::class,
+            foreignKey: 'user_id',
+        );
+    }
 }
