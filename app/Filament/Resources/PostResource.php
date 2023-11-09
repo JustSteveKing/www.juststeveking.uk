@@ -9,7 +9,6 @@ use App\Enums\Partner;
 use App\Enums\Visibility;
 use App\Filament\Resources\PostResource\Pages;
 use App\Models\Post;
-use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -30,18 +29,18 @@ final class PostResource extends Resource
                 Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
                     ->default(Auth::id())
-                    ->hidden()
                     ->required(),
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('slug')
                     ->required()
-                    ->maxLength(255)->unique(),
+                    ->maxLength(255)->unique()
+                    ->unique(ignoreRecord: true),
                 Forms\Components\Textarea::make('description')
                     ->required()
                     ->maxLength(160)
-                     ->columnSpanFull()
+                    ->columnSpanFull()
                     ->rows(5),
                 Forms\Components\FileUpload::make('image')
                     ->image(),
@@ -79,7 +78,7 @@ final class PostResource extends Resource
                     ->searchable(),
             ])
             ->filters([
-                //
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -94,7 +93,7 @@ final class PostResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+
         ];
     }
 

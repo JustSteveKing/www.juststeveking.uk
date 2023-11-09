@@ -1,5 +1,5 @@
 @props([
-    'title' => config('app.name'),
+    'title' => config('site.title'),
 ])
 
 <!DOCTYPE html>
@@ -22,7 +22,7 @@
 </head>
 <body class="antialiased">
     <div class="bg-white dark:bg-black">
-        <header x-data="{ open: false }" @keydown.window.escape="open = false" class="sticky inset-x-0 top-0 z-50">
+        <header x-data="{ open: false }" @keydown.window.escape="open = false" class="sticky inset-x-0 top-0 z-50 bg-gray-50/80 dark:bg-gray-900">
             <div class="mx-auto max-w-7xl">
                 <div class="py-6">
                     <nav class="flex items-center justify-between lg:justify-start" aria-label="Global">
